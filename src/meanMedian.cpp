@@ -52,6 +52,7 @@ int main(int argc, char* argv[]) {
 
     // While not the end of file, iterate through data
     while (!infile.eof()) {
+        acctBal = 0.0;                         // Reinitialize acctBal
         name[0] = 0;                           // Test for empty record
         infile >> acctNo >> name >> acctBal;   // Store each data set
         if (name[0] != 0)                      // Ignore empty record
@@ -63,7 +64,7 @@ int main(int argc, char* argv[]) {
     // Close file 
     infile.close();
     // Calculate mean
-    mean = total/recordCount;
+    mean = total / recordCount;
     // Display record count and mean
     cout << endl;                                       // Blank line
     cout << setiosflags(ios::fixed | ios::showpoint);   // Show decimal
