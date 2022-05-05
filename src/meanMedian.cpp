@@ -10,7 +10,7 @@
 #include <iostream>    // Used for I/O
 #include <fstream>     // Used to open files
 #include <cstdlib>     // Used for exit()
-#include <iomanip>
+#include <iomanip>     // Used for 2 places past decimal
 using namespace std;   // For cin cout
 
 // Start int main
@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
         name[0] = 0;                           // Test for empty record
         infile >> acctNo >> name >> acctBal;   // Store each data set
         if (name[0] != 0)                      // Ignore empty record
-            recordCount++;
+            recordCount++;                     // Keep count of records
             total += acctBal;                  // Add acctBal to total for mean calc
             
     }   // End of while
@@ -70,8 +70,6 @@ int main(int argc, char* argv[]) {
     cout << setiosflags(ios::fixed | ios::showpoint);   // Show decimal
     cout << setprecision(2);                            // Set 2 place decimal
     cout << "There are " << recordCount << " records in " << filename << endl;
-    // Test line
-    cout << "The total is " << total << endl;
     cout << "The mean of " << filename << " is " << mean << endl;
 
     // PART 2. Determine number of records to skip and establish mean
@@ -84,7 +82,7 @@ int main(int argc, char* argv[]) {
 
     // Reopen file
     infile.open(filename);
-    // Did it work
+    // Did it work?
     if (infile.fail()) {
         // Alert User
         cerr << "Unable tp open --" << filename << "--, first pass" << endl;
@@ -92,6 +90,7 @@ int main(int argc, char* argv[]) {
         exit(1);
     }   // End of fail
 
+    // Iterate through data and skip all the way to our median records
     while (recordsToSkip != 0) {
         infile >> acctNo >> name >> acctBal;   // Cycle through data
         recordsToSkip--;                       // Decrement records
